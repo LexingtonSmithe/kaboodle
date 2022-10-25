@@ -1,0 +1,15 @@
+{
+  "name": "kaboodle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "cypress": "^10.10.0"
+  },
+  "scripts": {
+    "cy:run": "cypress run",
+    "test": "npm run cy:run --record --spec 'cypress/e2e/bookingFlow.cy.js'"
+  },
+  "author": "",
+  "license": "ISC"
+}

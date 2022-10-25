@@ -1,0 +1,20 @@
+{
+  "email" : "zkgicdgwla@mailinator.com",
+  "firstName" : "Jeff",
+  "lastName" : "Bridges",
+  "password" : "truegrit",
+  "telephoneNumber" : "07123456789",
+  "dob": {
+    "day" : "01",
+    "month": "01",
+    "year": "1980"
+  },
+  "addressLineOne": "123 Bakers Street",
+  "city": "Manchester",
+  "postcode": "M1 1EH",
+  "cardDetails" : {
+    "number": "4111111111111111",
+    "cvv" : "123"
+  }
+
+}

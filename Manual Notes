@@ -1,0 +1,76 @@
+Part 1: 
+
+Manually test the booking system, based upon your own testing intuition
+
+Exporatory session: Timebox - 30 mins
+
+	Goals: 
+		Identify and understand the systems core functionalities
+
+	Scope:
+		Core functionality
+		Observable (obvious) NFR issues
+	Out of scope:
+		Deeper dives on NFRs
+		Return customer journey
+
+
+	Outcomes:
+		Found a couple of bugs
+		Some poor element handling in terms of validation or rules
+		Poor UX
+		Core journey is:
+			Session length of 10 hours
+			The addition of tickets 
+			Prices reflecting number of tickets with any fees
+			Ability to proceed to customer details
+			Create a new customer
+			Capture customer details
+			Address lookup
+			Promote protection insurance (business requirement)
+			T's & C's
+			Take payment
+			Confirm booking.
+			Ensuring price is maintained throughout.
+
+	Notes:
+		Check Core event information
+			Date, Time, Vanue, Restrictions, Transaction Fees (ensure transaction fee is added to total price)
+		Check dispatch information
+		Check different rounds of ticket sales -> Increases in price
+		Check different rounds also contain booking fees - ensure this is added to the total price (e.g. 39.50 + 3.95 = £44.45)
+		Result: Displayed total price at this stage is £43.45 (does not seem to add transaction fee at this stage?)
+		Check adding multiple tickets also adds multiple booking fees 
+		Check adding tickets from different releases updates with the correct ticket price and booking fees
+		Check unable to click on sold out tickets. 
+		Note: Tabbing out causes basket to refresh with an updating modal (yes I tabbed out to use google as a calculator)?
+		BUG: Either through a combination of tabbing our or allowing the session to get to a certian point
+			Price is not displayed in with currency marker. 
+			Price does not contain decimal places to denote £/p
+		CAUSE - Session expiry - Think this was cause by my dodgy internet, but the session length behvaiour should be tested properly
+		BUG: Clicking on the shopping basket to view contents instead of showing the tickets currently selected, shows the
+			Booking expiration and the total price as £0.00. Total price in the main box remains the same. 
+		CAUSE - It only adds the tickets to the cart after the customer has clicked continue. 
+		Note: Navigation breadcrumbs only display the name of the stage when on that stage and otherwise display only numbers
+		BUG: (big) Once you go through to customer details and enter an email, and select proceed to payment you're taken to the enter customer details page, the breadcrumb navigation for the 3rd page 'Payments' then becomes clickable allowing the customer to bypass entering details entirely.
+		Check email address is carried over from previous page. 
+		Note: Able to delete tickets but not reduce incrementally
+		Check unable to proceed without entering mandatory information
+		Check individual fields accept valid data 
+		Perform input field tests around validation, boundaries, alt characters etc. 
+		Note: Accepts domains that are disposable emails? - could be succeptable to DDOSing fairly easily
+		Note: Weak password complexity rules
+		Note: Phone number length validation of 8 only landline numbers without an area code (i.e. useless) would use this short a length
+		Note: Able to type in any DOB beyond  2 / 2 / 4 characters although it does validate this if you try to progress
+		Check unable to proceed without selecting a refund protection option 
+		Check refund protection selected updates the price
+		Check differing payment methods, clicking each one changes the input fields
+		Note: Takes a while to be taken to the confirmation page - load times
+		Check you're taken to the confirmation page
+		Note: Total price was £86.90 (£79 + £7.90) Paid today was £90.88 - This is for the refund protection (£3.98) but isn't made clear and might confuse customers
+
+		After buying tickets it recognises the email address - will need to factor this in to the automation
+
+		Check session expiry behaviour
+		Kicked back out to ticket page (assuming built for interviews and not where it would boot you out to IRL?)
+		Currency gone - Decimal gone able to add tickets but clicking continue causes an endless processing issue
