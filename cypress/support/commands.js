@@ -53,6 +53,64 @@ const isIframeLoaded = $iframe => {
 
   return false;
 };
+Cypress.Commands.add('registerNewEmailAddress', () => {
+  cy.get('[data-test="input-registration-email"]')
+    .type(randomString(8) + "@mailinator.com")
+  cy.get('[data-test="button-registration-form-submit"]')
+    .click()
+})
+Cypress.Commands.add('addProtectionPlan', () => {
+  cy.get('.col-sm-12 > .btn')
+    .click()
+  cy.get('[data-test="KBF-protection-plan-yes-label"]')
+    .click()
+})
+
+Cypress.Commands.add('manuallyEnterAddress', (customer) => {
+  cy.get('.col-sm-12 > .btn') // no data tag
+    .click()
+  cy.get('[data-test="input-details-address-line-1-input"]')
+    .type(customer.addressLineOne)
+  cy.get('[data-test="input-details-address-city-input"]')
+    .type(customer.city)
+  //missing specific data tag for postcode
+  //cy.get('.inputContainer-0-2-430 > [data-test="input-details-address-county-input"]')
+  cy.get('.inputContainer-0-2-443 > [data-test="input-details-address-county-input"]')
+    .type(customer.postcode)
+})
+
+
+
+Cypress.Commands.add('fillOutCustomerInformation', (customer) => {
+  cy.get('[data-test="input-details-first-name-1-input"]')
+    .type(customer.firstName)
+  cy.get('[data-test="input-details-last-name-1-input"]')
+    .type(customer.lastName)
+  cy.get('[data-test="pax-password-1-input"]')
+    .type(customer.password)
+  cy.get('[data-test="pax-confirm-password-1-input"]')
+    .type(customer.password)
+  cy.get('.wrapper-0-2-352 > .Select__control')
+    .click()
+  cy.get('[data-test="input-details-gender-1-Male"]')
+    .click()
+  cy.get('#pax-phone-number-1')
+    .type(customer.telephoneNumber)
+  cy.get('#day-pax-date-of-birth-1')
+    .type(customer.dob.day)
+  cy.get('#month-pax-date-of-birth-1')
+    .type(customer.dob.month)
+  cy.get('#year-pax-date-of-birth-1')
+    .type(customer.dob.year)
+  cy.get('.wrapper-0-2-152 > .Select__control > .Select__value-container')
+    .click()
+  cy.get('#react-select-3-option-0') //no data tag
+    .should(($el)=> {
+      expect($el).to.contain("United Kingdom")
+    })
+    .click()
+  cy.manuallyEnterAddress(customer)
+})
 
 Cypress.Commands.add('iframe', { prevSubject: 'element' }, $iframes => new Cypress.Promise(resolve => {
   const loaded = [];
@@ -100,3 +158,11 @@ Cypress.Commands.add('fillOutCreditCardForm', details => {
         .fill(details.cvv);
   });
 });
+
+function randomString(length){
+  let text = "";
+  let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  for (let i = 0; i < length; i++)
+    text += letters.charAt(Math.floor(Math.random() * letters.length));
+  return text;
+}
